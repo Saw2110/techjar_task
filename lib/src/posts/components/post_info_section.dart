@@ -5,7 +5,8 @@ import '../posts.dart';
 
 class PostInfoSection extends StatelessWidget {
   final PostsModel postInfo;
-  const PostInfoSection({super.key, required this.postInfo});
+  final void Function()? onTap;
+  const PostInfoSection({super.key, required this.postInfo, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +17,7 @@ class PostInfoSection extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.0),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: onTap,
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: ListTile(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:techjar_task/core/widgets/page_wrapper.dart';
+import 'package:techjar_task/src/posts/posts.dart';
 
 class IndexScreen extends StatelessWidget {
   const IndexScreen({super.key});
@@ -11,7 +12,7 @@ class IndexScreen extends StatelessWidget {
       canPop: false,
       appbarTitle: "INDEX",
       automaticallyImplyLeading: false,
-      body: SizedBox.shrink(),
+      body: PostScreen(),
     );
   }
 }

@@ -42,7 +42,13 @@ class PostView extends StatelessWidget {
       itemCount: postProvider.postList.length,
       itemBuilder: (BuildContext context, int index) {
         final postInfo = postProvider.postList[index];
-        return PostInfoSection(postInfo: postInfo);
+        return PostInfoSection(
+          onTap: () {
+            postProvider.selectedPost = postInfo;
+            NavigationService.pushNamed(AppRoute.postDetailScreen);
+          },
+          postInfo: postInfo,
+        );
       },
     );
   }

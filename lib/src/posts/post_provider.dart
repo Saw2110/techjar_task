@@ -29,6 +29,13 @@ class PostProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  late PostsModel _selectedPost = PostsModel.fromJson({});
+  PostsModel get selectedPost => _selectedPost;
+  set selectedPost(PostsModel value) {
+    _selectedPost = value;
+    notifyListeners();
+  }
+
   init() async {
     await clean();
 
@@ -39,5 +46,8 @@ class PostProvider extends ChangeNotifier {
 
   clean() async {
     _isLoading = false;
+
+    _postList.clear();
+    _selectedPost = PostsModel.fromJson({});
   }
 }
