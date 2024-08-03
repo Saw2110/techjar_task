@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:techjar_task/core/utils/network_check.dart';
 
+import 'db/post_db.dart';
 import 'posts.dart';
 
 class PostProvider extends ChangeNotifier {
@@ -38,9 +40,13 @@ class PostProvider extends ChangeNotifier {
 
   init() async {
     await clean();
-
     isLoading = true;
-    postList = await PostAPI.getAllPosts();
+
+    await NetworkConnection.check(
+      isAvailable: getPostListFromRemote,
+      noConnection: getPostListFromDB,
+    );
+
     isLoading = false;
   }
 
@@ -49,5 +55,26 @@ class PostProvider extends ChangeNotifier {
 
     _postList.clear();
     _selectedPost = PostsModel.fromJson({});
+  }
+
+  getPostListFromRemote() async {
+    await PostAPI.getAllPosts().then((list) async {
+      await insertIntoDatabase(list);
+    });
+    notifyListeners();
+  }
+
+  insertIntoDatabase(List<PostsModel> list) async {
+    await PostsDatabase.instance.deleteData();
+    for (var index in list) {
+      await PostsDatabase.instance.insertData(index);
+    }
+    await getPostListFromDB();
+    notifyListeners();
+  }
+
+  getPostListFromDB() async {
+    postList = await PostsDatabase.instance.getPostList();
+    notifyListeners();
   }
 }

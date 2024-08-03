@@ -6,15 +6,15 @@ class PostsModel {
     required this.body,
   });
 
-  final int userId;
-  final int id;
+  final String userId;
+  final String id;
   final String title;
   final String body;
 
   factory PostsModel.fromJson(Map<String, dynamic> json) {
     return PostsModel(
-      userId: json["userId"] ?? 0,
-      id: json["id"] ?? 0,
+      userId: (json["userId"] ?? 0).toString(),
+      id: (json["id"] ?? 0).toString(),
       title: json["title"] ?? "",
       body: json["body"] ?? "",
     );

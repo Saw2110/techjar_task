@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:techjar_task/core/utils/app_validator.dart';
 
 import '../../../core/core.dart';
+import '../../../core/utils/network_check.dart';
 import '../../comments/comments.dart';
 import '../posts.dart';
 
@@ -86,11 +86,18 @@ class _AddCommentSectionState extends State<AddCommentSection> {
             label: "Confirm",
             onTap: () async {
               if (_formKey.currentState!.validate()) {
-                NavigationService.pop();
-                await commentProvider.postComment(
-                  name: _nameController.text,
-                  email: _emailController.text,
-                  detail: _commentController.text,
+                await NetworkConnection.check(
+                  isAvailable: () async {
+                    NavigationService.pop();
+                    await commentProvider.postCommentToRemote(
+                      name: _nameController.text,
+                      email: _emailController.text,
+                      detail: _commentController.text,
+                    );
+                  },
+                  noConnection: () {
+                    "No internet Connection".errorToast();
+                  },
                 );
               }
             },

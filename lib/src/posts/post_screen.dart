@@ -38,18 +38,20 @@ class PostView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final postProvider = context.watch<PostProvider>();
-    return ListView.builder(
-      itemCount: postProvider.postList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final postInfo = postProvider.postList[index];
-        return PostInfoSection(
-          onTap: () {
-            postProvider.selectedPost = postInfo;
-            NavigationService.pushNamed(AppRoute.postDetailScreen);
-          },
-          postInfo: postInfo,
-        );
-      },
-    );
+    return postProvider.postList.isNotEmpty
+        ? ListView.builder(
+            itemCount: postProvider.postList.length,
+            itemBuilder: (BuildContext context, int index) {
+              final postInfo = postProvider.postList[index];
+              return PostInfoSection(
+                onTap: () {
+                  postProvider.selectedPost = postInfo;
+                  NavigationService.pushNamed(AppRoute.postDetailScreen);
+                },
+                postInfo: postInfo,
+              );
+            },
+          )
+        : const Text("No post available.");
   }
 }
