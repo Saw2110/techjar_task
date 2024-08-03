@@ -29,18 +29,19 @@ class _CommentScreenState extends State<CommentScreen> {
       visible: commentProvider.isLoading,
       replacement: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text("Replies", style: context.kBoldTitleText),
-              _textWithIcon(
-                context,
-                lable: "View Activity",
-                icon: Icons.arrow_forward_ios,
-              ),
-            ],
-          ).paddingHorizontal(10.0),
+          if (commentProvider.commentList.isNotEmpty)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text("Replies", style: context.kBoldTitleText),
+                _textWithIcon(
+                  context,
+                  lable: "View Activity",
+                  icon: Icons.arrow_forward_ios,
+                ),
+              ],
+            ).paddingHorizontal(10.0),
           5.xGap,
           const Flexible(child: CommentView()),
         ],
@@ -81,22 +82,24 @@ class CommentView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final commentProvider = context.watch<CommentProvider>();
-    return ListView.builder(
-      itemCount: commentProvider.commentList.length,
-      itemBuilder: (BuildContext context, int index) {
-        final commentInfo = commentProvider.commentList[index];
-        return CommentInfoSection(
-          onTap: () async {
-            await CommentAPI.postCommentAccordingToPost(
-              postId: "1",
-              name: "name",
-              email: "email",
-              detail: "detail",
-            );
-          },
-          commentInfo: commentInfo,
-        );
-      },
-    );
+    return commentProvider.commentList.isNotEmpty
+        ? ListView.builder(
+            itemCount: commentProvider.commentList.length,
+            itemBuilder: (BuildContext context, int index) {
+              final commentInfo = commentProvider.commentList[index];
+              return CommentInfoSection(
+                onTap: () async {
+                  await CommentAPI.postCommentAccordingToPost(
+                    postId: "1",
+                    name: "name",
+                    email: "email",
+                    detail: "detail",
+                  );
+                },
+                commentInfo: commentInfo,
+              );
+            },
+          )
+        : const Text("No comment on this post");
   }
 }

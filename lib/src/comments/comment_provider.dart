@@ -3,6 +3,9 @@ import 'package:provider/provider.dart';
 import 'package:techjar_task/src/comments/comments.dart';
 import 'package:techjar_task/src/posts/posts.dart';
 
+import '../../core/utils/network_check.dart';
+import 'db/comment_db.dart';
+
 class CommentProvider extends ChangeNotifier {
   CommentProvider();
 
@@ -30,20 +33,30 @@ class CommentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  late final PostProvider postProvider;
+  PostProvider? _postProvider;
+  PostProvider get postProvider => _postProvider!;
+  set postProvider(PostProvider value) {
+    _postProvider = value;
+  }
+
   initProvider() {
-    postProvider = context.read<PostProvider>();
+    if (_postProvider == null) {
+      _postProvider = Provider.of<PostProvider>(context, listen: false);
+      notifyListeners();
+    }
   }
 
   init() async {
     await initProvider();
 
     await clean();
-
     isLoading = true;
-    commentList = await CommentAPI.getCommentAccordingToPost(
-      postId: "${postProvider.selectedPost.id}",
+
+    await NetworkConnection.check(
+      isAvailable: getCommentListFromRemote,
+      noConnection: getCommentListFromDB,
     );
+
     isLoading = false;
   }
 
@@ -53,20 +66,43 @@ class CommentProvider extends ChangeNotifier {
     _commentList.clear();
   }
 
-  postComment({
+  getCommentListFromRemote() async {
+    await CommentAPI.getCommentAccordingToPost(
+      postId: postProvider.selectedPost.id,
+    ).then((list) async {
+      await insertIntoDatabase(list);
+    });
+    notifyListeners();
+  }
+
+  insertIntoDatabase(List<CommentModel> list) async {
+    await CommentDatabase.instance.deleteDataAccordingToPost(
+      postId: postProvider.selectedPost.id,
+    );
+    for (var index in list) {
+      await CommentDatabase.instance.insertData(index);
+    }
+    await getCommentListFromDB();
+    notifyListeners();
+  }
+
+  getCommentListFromDB() async {
+    commentList = await CommentDatabase.instance.getCommentsAccordingToPost(
+      postid: postProvider.selectedPost.id,
+    );
+    notifyListeners();
+  }
+
+  postCommentToRemote({
     required String name,
     required String email,
     required String detail,
   }) async {
     await CommentAPI.postCommentAccordingToPost(
-      postId: "${postProvider.selectedPost.id}",
+      postId: postProvider.selectedPost.id,
       name: name,
       email: email,
       detail: detail,
-    );
-
-    commentList = await CommentAPI.getCommentAccordingToPost(
-      postId: "${postProvider.selectedPost.id}",
     );
   }
 }

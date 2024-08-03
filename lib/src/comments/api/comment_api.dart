@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:techjar_task/core/core.dart';
 
-import '../../../core/utils/snack_bar.dart';
 import '../comments.dart';
 
 class CommentAPI {
@@ -39,12 +38,12 @@ class CommentAPI {
       var json = await ApiService().postRequest(api, body);
       debugPrint("JSON $json");
 
-      ShowSnackbar.successSnack("Post Successfully");
+      "Post Successfully".errorToast();
 
       // return json.map((item) => CommentModel.fromJson(item)).toList();
     } catch (e) {
       // return [];
-      ShowSnackbar.failureSnack("$e");
+      "$e".errorToast();
       debugPrint("ERROR $e");
     }
   }

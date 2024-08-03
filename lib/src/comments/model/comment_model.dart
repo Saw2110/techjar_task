@@ -7,16 +7,16 @@ class CommentModel {
     required this.body,
   });
 
-  final int postId;
-  final int id;
+  final String postId;
+  final String id;
   final String name;
   final String email;
   final String body;
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
     return CommentModel(
-      postId: json["postId"] ?? 0,
-      id: json["id"] ?? 0,
+      postId: (json["postId"] ?? 0).toString(),
+      id: (json["id"] ?? 0).toString(),
       name: json["name"] ?? "",
       email: json["email"] ?? "",
       body: json["body"] ?? "",
