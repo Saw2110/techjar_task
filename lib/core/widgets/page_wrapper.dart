@@ -6,15 +6,17 @@ class PageWrapper extends StatelessWidget {
   final Widget? body;
   final Widget? bottomNavigationBar;
   final Widget? bottomSheet;
+  final Widget? floatingActionButton;
   final bool automaticallyImplyLeading;
   final bool canPop;
   final void Function(bool)? onPopInvoked;
   const PageWrapper({
     super.key,
-    required this.appbarTitle,
+    this.appbarTitle = "",
     this.actions,
     this.body,
     this.bottomNavigationBar,
+    this.floatingActionButton,
     this.bottomSheet,
     this.automaticallyImplyLeading = true,
     this.canPop = true,
@@ -38,6 +40,7 @@ class PageWrapper extends StatelessWidget {
         ),
         bottomNavigationBar: bottomNavigationBar,
         bottomSheet: bottomSheet,
+        floatingActionButton: floatingActionButton,
       ),
     );
   }

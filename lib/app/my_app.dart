@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../core/core.dart';
 
+final scaffoldKey = GlobalKey<ScaffoldMessengerState>();
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -10,6 +12,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: "TechJAR",
       debugShowCheckedModeBanner: false,
+      scaffoldMessengerKey: scaffoldKey,
       navigatorKey: NavigationService.navigatorKey,
       initialRoute: AppRoute.splashScreen,
       onGenerateRoute: RouteGenerator.generateRoute,

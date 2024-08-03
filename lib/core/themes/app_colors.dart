@@ -6,4 +6,5 @@ class AppColors {
   static Color successColor = Colors.green;
   static Color errorColor = Colors.red;
   static Color black = Colors.black;
+  static Color midGrey = Colors.black87;
 }

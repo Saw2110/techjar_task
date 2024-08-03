@@ -10,7 +10,7 @@ extension ThemeDataX on BuildContext {
       );
 
   ///
-  TextStyle get kSubTitleText => const TextStyle(fontSize: 16.0);
+  TextStyle get kSubTitleText => const TextStyle(fontSize: 14.0);
   TextStyle get kBoldSubTitleText => kSubTitleText.copyWith(
         fontWeight: FontWeight.bold,
       );
@@ -18,6 +18,12 @@ extension ThemeDataX on BuildContext {
   ///
   TextStyle get kNormalText => const TextStyle(fontSize: 13.0);
   TextStyle get kBoldNormalText => kNormalText.copyWith(
+        fontWeight: FontWeight.bold,
+      );
+
+  ///
+  TextStyle get kSmallText => const TextStyle(fontSize: 11.0);
+  TextStyle get kBoldSmallText => kNormalText.copyWith(
         fontWeight: FontWeight.bold,
       );
 }

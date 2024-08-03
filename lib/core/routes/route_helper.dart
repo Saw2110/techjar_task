@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:techjar_task/core/routes/route_info.dart';
+import 'package:techjar_task/src/posts/components/post_detail_section.dart';
 
 import '../../src/index/index.dart';
 import '../../src/splash/splash.dart';
@@ -19,6 +20,11 @@ class RouteGenerator {
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           child: const IndexScreen(),
+        );
+      case AppRoute.postDetailScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const PostDetailSection(),
         );
 
       default:
