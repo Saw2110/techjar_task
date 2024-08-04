@@ -4,4 +4,5 @@ class AppApi {
   ///
   static String getAllPost = "$baseUrl/posts";
   static String getComments = "comments";
+  static String getUsers = "$baseUrl/users";
 }

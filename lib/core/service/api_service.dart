@@ -13,6 +13,7 @@ class ApiService {
 
   Future<List<dynamic>> getRequest(String url) async {
     final response = await http.get(Uri.parse(url));
+
     if (response.statusCode == 200) {
       return json.decode(response.body) as List<dynamic>;
     } else {

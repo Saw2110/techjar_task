@@ -5,6 +5,7 @@ import 'package:techjar_task/src/posts/components/post_detail_section.dart';
 
 import '../../src/index/index.dart';
 import '../../src/splash/splash.dart';
+import '../../src/users/users.dart';
 import '../widgets/error_widget.dart';
 
 class RouteGenerator {
@@ -25,6 +26,11 @@ class RouteGenerator {
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           child: const PostDetailSection(),
+        );
+      case AppRoute.userScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const UserScreen(),
         );
 
       default:

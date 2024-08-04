@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../src/comments/comments.dart';
 import '../src/posts/posts.dart';
+import '../src/users/users.dart';
 
 class ProviderWrapper extends StatelessWidget {
   final Widget child;
@@ -14,6 +15,7 @@ class ProviderWrapper extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => PostProvider()),
         ChangeNotifierProvider(create: (_) => CommentProvider()),
+        ChangeNotifierProvider(create: (_) => UserProvider()),
       ],
       child: child,
     );

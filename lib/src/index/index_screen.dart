@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:techjar_task/core/widgets/page_wrapper.dart';
+import 'package:techjar_task/core/core.dart';
 import 'package:techjar_task/src/posts/posts.dart';
 
 class IndexScreen extends StatelessWidget {
@@ -8,11 +7,18 @@ class IndexScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const PageWrapper(
+    return PageWrapper(
       canPop: false,
       appbarTitle: "INDEX",
       automaticallyImplyLeading: false,
-      body: PostScreen(),
+      body: const PostScreen(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          NavigationService.pushNamed(AppRoute.userScreen);
+        },
+        icon: const Icon(Icons.group),
+        label: const Text("Users Lists"),
+      ),
     );
   }
 }
