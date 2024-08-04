@@ -25,7 +25,10 @@ class AlbumSection extends StatelessWidget {
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: InkWell(
-            onTap: () {},
+            onTap: () {
+              bottomNavBarProvider.selectedAlbum = albumInfo;
+              NavigationService.pushNamed(AppRoute.photoScreen);
+            },
             child: Center(
               child: Text(
                 albumInfo.title,

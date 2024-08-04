@@ -5,6 +5,7 @@ import 'package:techjar_task/src/posts/components/post_detail_section.dart';
 
 import '../../src/bottom_navbar/bottom_navbar.dart';
 import '../../src/index/index.dart';
+import '../../src/photos/photos.dart';
 import '../../src/splash/splash.dart';
 import '../../src/users/users.dart';
 import '../widgets/error_widget.dart';
@@ -37,6 +38,11 @@ class RouteGenerator {
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           child: const BottomNavbarScreen(),
+        );
+      case AppRoute.photoScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const PhotoScreen(),
         );
 
       default:

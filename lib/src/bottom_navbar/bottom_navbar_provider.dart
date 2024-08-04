@@ -75,4 +75,11 @@ class BottomNavBarProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  late AlbumModel _selectedAlbum = AlbumModel.fromJson({});
+  AlbumModel get selectedAlbum => _selectedAlbum;
+  set selectedAlbum(AlbumModel value) {
+    _selectedAlbum = value;
+    notifyListeners();
+  }
 }

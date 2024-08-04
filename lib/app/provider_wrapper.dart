@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../src/bottom_navbar/bottom_navbar_provider.dart';
 import '../src/comments/comments.dart';
+import '../src/photos/photos.dart';
 import '../src/posts/posts.dart';
 import '../src/users/users.dart';
 
@@ -18,6 +19,7 @@ class ProviderWrapper extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => CommentProvider()),
         ChangeNotifierProvider(create: (_) => UserProvider()),
         ChangeNotifierProvider(create: (_) => BottomNavBarProvider()),
+        ChangeNotifierProvider(create: (_) => PhotosProvider()),
       ],
       child: child,
     );
