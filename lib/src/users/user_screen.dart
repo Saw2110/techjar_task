@@ -48,7 +48,10 @@ class UserView extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               final userInfo = userProvider.userList[index];
               return UserInfoSection(
-                onTap: () {},
+                onTap: () {
+                  userProvider.selectedUser = userInfo;
+                  NavigationService.pushNamed(AppRoute.bottomNavbarScreen);
+                },
                 userInfo: userInfo,
               );
             },

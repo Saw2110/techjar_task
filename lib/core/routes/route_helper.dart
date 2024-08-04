@@ -3,6 +3,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:techjar_task/core/routes/route_info.dart';
 import 'package:techjar_task/src/posts/components/post_detail_section.dart';
 
+import '../../src/bottom_navbar/bottom_navbar.dart';
 import '../../src/index/index.dart';
 import '../../src/splash/splash.dart';
 import '../../src/users/users.dart';
@@ -31,6 +32,11 @@ class RouteGenerator {
         return PageTransition(
           type: PageTransitionType.rightToLeft,
           child: const UserScreen(),
+        );
+      case AppRoute.bottomNavbarScreen:
+        return PageTransition(
+          type: PageTransitionType.rightToLeft,
+          child: const BottomNavbarScreen(),
         );
 
       default:

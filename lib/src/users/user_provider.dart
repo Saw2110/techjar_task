@@ -34,12 +34,20 @@ class UserProvider extends ChangeNotifier {
     _isLoading = false;
 
     _userList.clear();
+    _selectedUser = UserModel.fromJson({});
   }
 
   late List<UserModel> _userList = [];
   List<UserModel> get userList => _userList;
   set userList(List<UserModel> value) {
     _userList = value;
+    notifyListeners();
+  }
+
+  late UserModel _selectedUser = UserModel.fromJson({});
+  UserModel get selectedUser => _selectedUser;
+  set selectedUser(UserModel value) {
+    _selectedUser = value;
     notifyListeners();
   }
 }
